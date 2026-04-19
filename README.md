@@ -5,7 +5,7 @@
 ![Data Structures](https://img.shields.io/badge/Core-Data_Structures-green.svg)
 ![Calculus](https://img.shields.io/badge/Math-Multivariable_Calculus-orange.svg)
 
-A modern, high-performance numerical analysis software implementing a **Frontend-Backend Architecture (前後端分離架構)**. This project bridges the precision required in financial accounting with advanced algorithmic parsing and multivariable calculus computation, built entirely from scratch.
+A modern, high-performance numerical analysis software implementing a **Frontend-Backend Architecture**. This project bridges the precision required in financial accounting with advanced algorithmic parsing and multivariable calculus computation, built entirely from scratch.
 
 ## 💡 Motivation
 This project was born from the desire to integrate cross-disciplinary knowledge. Standard calculators lack the flexibility to handle complex multivariable integration, while professional math software is often too bloated. 
@@ -27,7 +27,7 @@ By combining the **Shunting-yard algorithm** (learned in Data Structures) with n
 ## 📂 Project Architecture
 The project strictly adheres to modular programming principles:
 ```text
-Financial-Expression-Evaluator/
+115eval_engine/
 ├── include/           # C Header files defining APIs (`stack.h`, `calculator.h`)
 ├── src/               # C Source code (`stack.c`, `calculator.c`, `main.c`)
 ├── Makefile           # Automated build configuration
@@ -40,8 +40,8 @@ Financial-Expression-Evaluator/
 **Step 1: Compile the C Backend Engine**
 Ensure you have `gcc` installed, then build the engine using the provided Makefile:
 ```bash
-git clone https://github.com/your-username/Financial-Expression-Evaluator.git
-cd Financial-Expression-Evaluator
+git clone https://github.com/elainyyy-c18/115eval_engine.git
+cd 115eval_engine
 make
 ```
 
