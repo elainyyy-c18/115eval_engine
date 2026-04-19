@@ -1,22 +1,22 @@
-# Financial Expression Evaluator 🧮
+# Financial & Engineering Expression Evaluator 🧮
 
-A highly precise, C-based command-line expression evaluator designed to handle complex financial calculations. 
+A robust, highly precise C-based command-line expression evaluator. It is designed to handle complex financial calculations, engineering mathematical functions, and even numerical calculus.
 
 ## 💡 Motivation
-Traditional basic calculators often fail to handle complex operational precedence or lack the precision required for accounting and financial models. This project integrates the **Shunting-yard algorithm** learned in Data Structures to parse complex mathematical expressions directly from string inputs, ensuring both $O(n)$ time complexity efficiency and high precision.
+This project bridges the gap between accounting precision requirements and advanced algorithmic logic. By integrating the **Shunting-yard algorithm** learned in Data Structures and mathematical concepts from Calculus, this tool not only parses strings into executable math but also performs real-time numerical integration. 
 
 ## 🚀 Features
-* **Modular Architecture**: Clean separation of Data Structures (`stack.h/c`) and Algorithms (`calculator.h/c`).
-* **Algorithmic Efficiency**: Utilizes Dijkstra's Shunting-yard algorithm for Infix to Postfix conversion.
-* **Financial Precision**: Implemented using `double` precision floating-point arithmetic to accurately manage decimals in financial contexts.
-* **Robust Error Handling**: Safely handles division by zero, mismatched parentheses, and unary minus operations.
+* **Modular Architecture:** Clean separation of Data Structures (`stack.h/c`) and Algorithms (`calculator.h/c`).
+* **Algorithmic Efficiency:** Utilizes Dijkstra's Shunting-yard algorithm for Infix to Postfix conversion with $O(n)$ time complexity.
+* **Engineering Functions:** Custom lexer/tokenizer to support advanced trigonometric and logarithmic functions (`sin`, `cos`, `sqrt`, `log`).
+* **Calculus Engine:** Implements the Trapezoidal Rule for numerical definite integration ($\int_a^b f(x) dx$), parsing algebraic expressions containing the variable `x`.
 
 ## 🛠️ Tech Stack
 * Language: Standard C
-* Core DSA: Stacks, String Parsing, Shunting-yard Algorithm
+* Core concepts: Stacks, String Parsing, Numerical Methods (Trapezoidal Rule)
 
 ## 💻 How to Compile and Run
-Navigate to the project root directory and compile using `gcc`:
+Ensure you have `gcc` installed, then build the project using the provided Makefile:
 ```bash
-gcc src/main.c src/stack.c src/calculator.c -I include -o financial_calc -lm
+make
 ./financial_calc
