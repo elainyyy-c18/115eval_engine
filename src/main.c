@@ -6,14 +6,17 @@
 #define MAX_SIZE 1000
 
 void printHeader() {
-    printf("\n=========================================\n");
-    printf("  Financial & Engineering Evaluator 🚀   \n");
-    printf("=========================================\n");
+    printf("\n=============================================\n");
+    printf("  Multivariable Calculus & Eval Engine 🚀  \n");
+    printf("=============================================\n");
     printf(" Commands:\n");
-    printf("   [expr] - Type any math expression (e.g., 5*sin(1))\n");
-    printf("   intg   - Enter Calculus Mode (Numerical Integration)\n");
-    printf("   exit   - Quit the program\n");
-    printf("-----------------------------------------\n");
+    printf("   [expr] - Calculate basic math (e.g., 5*sin(1))\n");
+    printf("   diff   - Mode: Numerical Differentiation f'(x)\n");
+    printf("   int1   - Mode: Definite Integral (1D)\n");
+    printf("   int2   - Mode: Double Integral (2D)\n");
+    printf("   int3   - Mode: Triple Integral (3D)\n");
+    printf("   exit   - Quit\n");
+    printf("---------------------------------------------\n");
 }
 
 int main() {
@@ -23,42 +26,55 @@ int main() {
     while (1) {
         printf("\n>> ");
         if (fgets(expression, MAX_SIZE, stdin) == NULL) break;
-        expression[strcspn(expression, "\n")] = 0; // 移除換行符號
+        expression[strcspn(expression, "\n")] = 0; 
         
-        if (strcmp(expression, "exit") == 0) {
-            printf("Goodbye!\n");
-            break;
-        }
+        if (strcmp(expression, "exit") == 0) break;
         if (strlen(expression) == 0) continue;
 
-        // 💡 進入微積分模式
-        if (strcmp(expression, "intg") == 0) {
-            char func_expr[MAX_SIZE];
-            double a, b;
-            
-            printf("\n[Calculus Mode] Numerical Integration\n");
-            printf("  Enter f(x) (e.g., x^2 + 2*x): ");
-            if (fgets(func_expr, MAX_SIZE, stdin) == NULL) break;
-            func_expr[strcspn(func_expr, "\n")] = 0;
-
-            printf("  Lower bound (a): ");
-            scanf("%lf", &a);
-            printf("  Upper bound (b): ");
-            scanf("%lf", &b);
-            
-            // 清理輸入緩衝區，避免下一次 fgets 讀到換行
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-
-            // 執行積分，切 1000 份來逼近
-            double integral_result = integrate(func_expr, a, b, 1000);
-            printf("  => Integral Result: %.4f\n", integral_result);
+        if (strcmp(expression, "diff") == 0) {
+            char func[MAX_SIZE]; double x_val;
+            printf("  [Derivative] Enter f(x): ");
+            scanf("%s", func);
+            printf("  Evaluate at x = ");
+            scanf("%lf", &x_val);
+            while(getchar() != '\n'); 
+            printf("  => f'(%.2f) approx: %.6f\n", x_val, derive(func, x_val));
             continue;
         }
 
-        // 一般計算模式
+        if (strcmp(expression, "int1") == 0) {
+            char func[MAX_SIZE]; double a, b;
+            printf("  [1D Integral] Enter f(x): "); scanf("%s", func);
+            printf("  Lower (a) & Upper (b): "); scanf("%lf %lf", &a, &b);
+            while(getchar() != '\n');
+            printf("  => Result: %.6f\n", integrate_1d(func, a, b, 1000));
+            continue;
+        }
+
+        if (strcmp(expression, "int2") == 0) {
+            char func[MAX_SIZE]; double ax, bx, ay, by;
+            printf("  [2D Double Integral] Enter f(x,y): "); scanf("%s", func);
+            printf("  x bounds (a b): "); scanf("%lf %lf", &ax, &bx);
+            printf("  y bounds (c d): "); scanf("%lf %lf", &ay, &by);
+            while(getchar() != '\n');
+            printf("  => Result: %.6f\n", integrate_2d(func, ax, bx, ay, by, 200));
+            continue;
+        }
+
+        if (strcmp(expression, "int3") == 0) {
+            char func[MAX_SIZE]; double ax, bx, ay, by, az, bz;
+            printf("  [3D Triple Integral] Enter f(x,y,z): "); scanf("%s", func);
+            printf("  x bounds (a b): "); scanf("%lf %lf", &ax, &bx);
+            printf("  y bounds (c d): "); scanf("%lf %lf", &ay, &by);
+            printf("  z bounds (e f): "); scanf("%lf %lf", &az, &bz);
+            while(getchar() != '\n');
+            // 注意：3D 迴圈次數(50)代表 50*50*50 = 125,000次計算，以防 C 語言跑太久
+            printf("  => Result: %.6f\n", integrate_3d(func, ax, bx, ay, by, az, bz, 50));
+            continue;
+        }
+
         double result = evaluate(expression);
-        printf("=> Result: %.4f\n", result); 
+        printf("=> Result: %.6f\n", result); 
     }
     return 0;
 }
