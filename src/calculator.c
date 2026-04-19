@@ -1,11 +1,17 @@
-// ... 前面的 precedence 和 applyOp 保持不變 ...
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <math.h>
+#include "../include/calculator.h"
+#include "../include/stack.h"
 
-// 🌟 升級版：支援 x, y, z 的核心計算引擎
 double evaluate_vars(const char* expression, double x_val, double y_val, double z_val) {
     int len = strlen(expression);
     for (int i = 0; i < len; i++) {
         if (isspace(expression[i])) continue;
 
+        // 1. 處理數字
         if (isdigit(expression[i]) || expression[i] == '.') {
             char buffer[32];
             int k = 0;
@@ -14,6 +20,7 @@ double evaluate_vars(const char* expression, double x_val, double y_val, double 
             pushVal(atof(buffer));
             i--; 
         }
+        // 2. 處理變數與函數
         else if (isalpha(expression[i])) {
             char func[16];
             int k = 0;
@@ -25,7 +32,12 @@ double evaluate_vars(const char* expression, double x_val, double y_val, double 
             if (strcmp(func, "y") == 0) { pushVal(y_val); i--; continue; }
             if (strcmp(func, "z") == 0) { pushVal(z_val); i--; continue; }
             
-            if (expression[i] == '(') {
+            // 略過函數名稱與括號之間的空格
+            int temp_i = i;
+            while (temp_i < len && isspace(expression[temp_i])) temp_i++;
+            
+            if (expression[temp_i] == '(') {
+                i = temp_i; // 將 i 移動到 '(' 的位置
                 int count = 1; char inner[128]; int j = 0; i++; 
                 while (i < len && count > 0) {
                     if (expression[i] == '(') count++;
@@ -40,7 +52,11 @@ double evaluate_vars(const char* expression, double x_val, double y_val, double 
                 else if (strcmp(func, "cos") == 0) pushVal(cos(inner_val));
                 else if (strcmp(func, "sqrt") == 0) pushVal(sqrt(inner_val));
                 else if (strcmp(func, "log") == 0) pushVal(log(inner_val));
-                else { printf("Unknown func: %s\n", func); exit(1); }
+                else { printf("\n[Error] Unknown function: '%s'\n", func); exit(1); }
+            } else {
+                // 💡 抓蟲：如果沒有括號，阻止程式靜默崩潰！
+                printf("\n[Syntax Error] Missing '(' after '%s'. Did you mean %s(...) or forget a '*' (e.g. 2*x)?\n", func, func);
+                exit(1);
             }
         }
         else if (expression[i] == '(') pushOp('(');
@@ -48,7 +64,25 @@ double evaluate_vars(const char* expression, double x_val, double y_val, double 
             while (!isOpEmpty() && peekOp() != '(') applyOp();
             popOp(); 
         }
+        // 3. 處理運算子
         else {
+            // 💡 抓蟲：工業級的「負號 (Unary Minus)」探測器
+            if (expression[i] == '-') {
+                int is_unary = 1; // 預設為負號
+                // 往回找前一個非空白字元
+                for (int j = i - 1; j >= 0; j--) {
+                    if (!isspace(expression[j])) {
+                        // 如果前一個字元是數字、右括號、或變數(英文字母)，那就是「減法」
+                        if (isdigit(expression[j]) || expression[j] == ')' || isalpha(expression[j]) || expression[j] == '.') {
+                            is_unary = 0; 
+                        }
+                        break;
+                    }
+                }
+                // 如果判定是負號，我們推入 0.0，讓程式執行 0.0 - x
+                if (is_unary) pushVal(0.0);
+            }
+
             while (!isOpEmpty() && precedence(peekOp()) >= precedence(expression[i])) applyOp();
             pushOp(expression[i]);
         }
@@ -57,7 +91,6 @@ double evaluate_vars(const char* expression, double x_val, double y_val, double 
     return popVal();
 }
 
-// 相容基本計算
 double evaluate(const char* expression) {
     return evaluate_vars(expression, 0, 0, 0);
 }
