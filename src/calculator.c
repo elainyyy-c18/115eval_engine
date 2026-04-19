@@ -6,6 +6,32 @@
 #include "../include/calculator.h"
 #include "../include/stack.h"
 
+int precedence(char op) {
+    if (op == '+' || op == '-') return 1;
+    if (op == '*' || op == '/') return 2;
+    if (op == '^') return 3; // 次方運算
+    return 0;
+}
+
+// 執行基本二元運算
+void applyOp() {
+    double b = popVal();
+    double a = popVal();
+    char op = popOp();
+    double result = 0;
+
+    switch (op) {
+        case '+': result = a + b; break;
+        case '-': result = a - b; break;
+        case '*': result = a * b; break;
+        case '/': 
+            if (b == 0) { printf("Error: Div by 0\n"); exit(1); }
+            result = a / b; break;
+        case '^': result = pow(a, b); break;
+    }
+    pushVal(result);
+}
+
 double evaluate_vars(const char* expression, double x_val, double y_val, double z_val) {
     int len = strlen(expression);
     for (int i = 0; i < len; i++) {

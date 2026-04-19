@@ -7,7 +7,7 @@
 
 void printHeader() {
     printf("\n=============================================\n");
-    printf("  Multivariable Calculus & Eval Engine 🚀  \n");
+    printf("  Multivariable Calculus & Eval Engine !\n");
     printf("=============================================\n");
     printf(" Commands:\n");
     printf("   [expr] - Calculate basic math (e.g., 5*sin(1))\n");
