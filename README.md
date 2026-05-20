@@ -1,18 +1,18 @@
-# 🧮 Multivariable Calculus Engine with Python GUI
+# Multivariable Calculus Engine with Python GUI
 
 ![Backend](https://img.shields.io/badge/Backend-Standard_C-blue.svg)
 ![Frontend](https://img.shields.io/badge/Frontend-Python_Tkinter-yellow.svg)
 ![Data Structures](https://img.shields.io/badge/Core-Data_Structures-green.svg)
 ![Calculus](https://img.shields.io/badge/Math-Multivariable_Calculus-orange.svg)
 
-A modern, high-performance numerical analysis software implementing a **Frontend-Backend Architecture**. This project bridges the precision required in financial accounting with advanced algorithmic parsing and multivariable calculus computation, built entirely from scratch.
+A high-performance numerical analysis software implementing a **Frontend-Backend Architecture**. This project represents the advanced algorithmic parsing and multivariable calculus computation, built entirely from Python GUI and C11.
 
-## 💡 Motivation
+## Motivation
 This project was born from the desire to integrate cross-disciplinary knowledge. Standard calculators lack the flexibility to handle complex multivariable integration, while professional math software is often too bloated. 
 
-By combining the **Shunting-yard algorithm** (learned in Data Structures) with numerical methods (learned in Advanced Calculus), this system utilizes Standard C for rigorous, memory-efficient computations, and Python for a user-friendly Graphical User Interface (GUI), demonstrating cross-language system integration.
+By combining the **Shunting-yard algorithm** with numerical methods, this system utilizes Standard C for memory-efficient computations, and Python for a user-friendly Graphical User Interface, demonstrating cross-language system integration.
 
-## 🚀 Core Features
+## Core Features
 
 ### 1. The Backend: Advanced Parsing & Calculus Engine (C)
 * **O(n) Time Complexity:** Implements Dijkstra's Shunting-yard algorithm to convert infix expressions to postfix notation via dynamic Stack structures.
@@ -24,7 +24,7 @@ By combining the **Shunting-yard algorithm** (learned in Data Structures) with n
 * **Cross-Platform UI:** Uses `Tkinter` to provide a tabbed interface for different calculus modes.
 * **Inter-Process Communication (IPC):** Dynamically passes user parameters to the C backend via standard I/O (`subprocess`), enabling headless execution and seamless data retrieval.
 
-## 📂 Project Architecture
+## Project Architecture
 The project strictly adheres to modular programming principles:
 ```text
 115eval_engine/
@@ -35,13 +35,13 @@ The project strictly adheres to modular programming principles:
 └── gui.py             # Python Tkinter Application (Frontend)
 ```
 
-## 💻 Installation & Usage
+## Installation & Usage
 
 **Step 1: Compile the C Backend Engine**
 Ensure you have `gcc` installed, then build the engine using the provided Makefile:
 ```bash
-git clone https://github.com/elainyyy-c18/115eval_engine.git
-cd 115eval_engine
+git clone https://github.com/elainyyy-c18/CalculusEval_engine.git
+cd CalculusEval_engine
 make
 ```
 
@@ -51,7 +51,7 @@ Requires Python 3.x. No external dependencies (`pip`) are needed!
 python gui.py
 ```
 
-## 🎮 Execution Modes
+## Execution Modes
 
 The software supports two ways of interaction:
 
