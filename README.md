@@ -61,7 +61,7 @@ Simply launch `gui.py` and navigate through the interactive tabs:
 * **Derivatives:** Calculates $f'(x)$ at any given point.
 * **Multiple Integrals:** Dedicated UI grids for inputting bounds $(a, b)$ for variables $x$, $y$, and $z$.
 
-### Method B: Command Line Interface (CLI) / Headless Mode
+### Method B: Command Line Interface / Headless Mode
 For direct terminal access, run `./financial_calc`.
 
 **Example: Computing a Double Integral (`int2`) via CLI**
